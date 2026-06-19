@@ -1,0 +1,25 @@
+{
+  "useMarkdownLinks": false,
+  "newLinkFormat": "shortest",
+  "attachmentFolderPath": "04 - Resources/Attachments",
+  "showUnsupportedFiles": false,
+  "spellcheck": true,
+  "spellcheckLanguages": [
+    "en"
+  ],
+  "showLineNumber": true,
+  "foldHeading": true,
+  "foldIndent": true,
+  "defaultViewMode": "source",
+  "livePreview": true,
+  "readableLineLength": true,
+  "strictLineBreaks": false,
+  "showFrontmatter": true,
+  "tabSize": 2,
+  "pdfExportSettings": {
+    "pageSize": "A4",
+    "landscape": false,
+    "margin": "0",
+    "downscaleEmbeddedImages": true
+  }
+}
