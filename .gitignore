@@ -1,0 +1,10 @@
+# Obsidian — per-machine UI state
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+
+# Obsidian community plugin binaries (re-installable; may store settings/secrets in data.json)
+.obsidian/plugins/
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
