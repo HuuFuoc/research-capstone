@@ -22,6 +22,10 @@ Một bài báo được chấp nhận **không thể** viết hoàn toàn từ 
 
 ## Cấu trúc đề xuất (IEEE/ACM conference style — RAG-only)
 
+> 📌 **Chuẩn trích dẫn đã chốt: Harvard (tác giả–năm)** theo [[References (Harvard) - Smart Solar (34 nguồn)]] — bài **không** dùng citation đánh số `[n]` kiểu IEEE; cụm "IEEE/ACM" ở đây chỉ nói về **bố cục/đánh số mục**. Nếu venue cuối yêu cầu IEEE numbered, chuyển đổi sau khi chốt venue.
+>
+> 📐 **Ánh xạ mục theo bản thảo hiện hành:** 1 Introduction · 2 Related Work · **3 Problem & RQ** · **4 System Design & Methodology (gộp)** · 5 Evaluation Setup · 6 Results & Discussion · 7 Limitations · 8 Conclusion (Abstract không đánh số). Bảng dưới là khung kế hoạch gốc.
+
 | # | Section | Nguồn nội dung | Trạng thái |
 |---|---------|----------------|-----------|
 | 1 | **Abstract** | Tóm tắt sau khi có kết quả | ⚠️ cuối cùng |
