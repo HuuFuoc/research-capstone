@@ -3,7 +3,7 @@ title: "Verify Log — NotebookLM (grounded)"
 tags: [note, paper, verification, log]
 status: reference
 created: 2026-06-29
-updated: 2026-06-30
+updated: 2026-07-05
 ---
 
 # Verify Log — NotebookLM (grounded на 35 nguồn)
@@ -15,7 +15,7 @@ updated: 2026-06-30
 - Notebook ban đầu chỉ có **26/34 nguồn**; đã nạp bổ sung → **35 nguồn** (2026-06-30). 7 paper RAG còn thiếu ([28]–[34]) nay đã vào.
 - Các nguồn được nạp dưới dạng **trang abstract (arXiv `/abs/`, ACL, …)** ⇒ NotebookLM chỉ "thấy" **mức abstract**. Vì vậy:
   - ✅ Verify tốt các số nằm **trong abstract**.
-  - ⚠️ **KHÔNG** verify được số nằm **trong bảng/thân bài** (vd AIS 65.5% ở Table 1 [23]); các số này giữ theo **đối chiếu full-text trước đó của vault** — không coi "NotebookLM không thấy" = "số sai".
+  - ⚠️ **KHÔNG** verify được số nằm **trong bảng/thân bài** (vd AIS 65.5% ở Table 1 [23]) — *đã đóng ở Đợt 3 (2026-07-05): đối chiếu trực tiếp full-text qua Chrome, xem bảng dưới.*
 - 1 nguồn bị crawl hỏng (trang *"Checking your browser – reCAPTCHA"*); vài nguồn CV ([11][12][16]) chưa vào — **ngoài phạm vi bài RAG**, không ảnh hưởng.
 
 ## Bảng verify
@@ -47,10 +47,32 @@ updated: 2026-06-30
 | 18 | CRAG: **retrieval evaluator** chấm chất lượng truy hồi | [30] | "a **lightweight retrieval evaluator** is designed to **assess the overall quality of retrieved documents** for a query, returning a **confidence degree** based on which different knowledge retrieval actions can be triggered" | ✅ |
 | 19 | GraphRAG: **câu hỏi toàn cục** + **community summaries** | [28] | "RAG **fails on global questions** directed at an entire text corpus … derive an **entity knowledge graph** … **pregenerate community summaries** … substantial improvements … **comprehensiveness and diversity**" | ✅ |
 
+### Đợt 3 — verify **full-text trực tiếp** qua Chrome (arXiv HTML/ar5iv, 2026-07-05)
+
+> NotebookLM xác nhận (session `b6b41c8b`) rằng [23], [18], [6] trong notebook **chỉ có abstract** → 4 claim còn lại được đối chiếu **trực tiếp trên full-text** (không qua NotebookLM):
+
+| # | Claim trong bài | Nguồn | Trích nguyên văn (full-text) | Trạng thái |
+|---|---|---|---|---|
+| 20 | AIS best retrieve-then-read **65.5±1.5%** (Table 1) | [23] | §5.3 System Results: "Retrieve-then-read 41.1 66.3 **65.5 ± 1.5**" (và RTR-10 GTR ở Table 2 ablations: 65.5 ± 1.5) | ✅ ar5iv/2212.08037 |
+| 21 | "correctness ≠ attribution" | [23] | §5.5: "best AIS performance **did not necessarily go hand-in-hand** with best EM accuracy … Pearson correlation coefficient between the system EM and AIS scores is **modest, at 0.45**" | ✅ ar5iv/2212.08037 |
+| 22 | Tên 4 thành phần **TRACe** | [18] | §3.2: "we introduce the TRACe evaluation framework to measure **uTilization, Relevance, Adherence, and Completeness** of a RAG system" | ✅ arxiv.org/html/2407.11005v2 |
+| 23 | Công thức 3 metric **RAGAS** | [6] | "$F = \|V\|/\|S\|$"; "$\mathrm{AR} = \frac{1}{n}\sum_{i=1}^{n}\mathrm{sim}(q, q_i)$"; "CR = number of extracted sentences / total number of sentences in $c(q)$" — metric thứ 3 của **bài gốc** là *context relevance*; *context precision@k* là metric **thư viện** | ✅ ar5iv/2309.15217 (bản arXiv của bài EACL) |
+
+### Đợt 4 — NotebookLM **full-text** (2026-07-05, sau khi user nạp 3 nguồn HTML full-text thủ công)
+
+> User đã nạp 3 URL full-text vào notebook: `arxiv.org/html/2407.11005v2` [18] · `ar5iv…/2212.08037` [23] · `ar5iv…/2309.15217` [6]. Hỏi lại (session `c780a17e`): **cả 4 claim #20–23 giờ được NotebookLM trích nguyên văn** ✅ (khớp 100% với Đợt 3). Khai thác thêm full-text được các số mới:
+
+| # | Claim / phát hiện mới | Nguồn | Trích nguyên văn (grounded) | Trạng thái |
+|---|---|---|---|---|
+| 24 | RAGAS–người đồng thuận WikiEval: **0.95 / 0.78 / 0.70** (faith./ans.rel./cont.rel.) | [6] | "RAGAs 0.95 0.78 0.70 … Table 1: Agreement with human annotators in pairwise comparisons"; "We found **context relevance to be the hardest** quality dimension to evaluate" | ✅ **đã đưa vào §2 + §7 của bài** |
+| 25 | Công thức TRACe: relevance $=Len(R_i)/Len(d_i)$; utilization $=Len(U_i)/Len(d_i)$; completeness $=Len(R_i\cap U_i)/Len(R_i)$; adherence = boolean/token-set $A_i$; đo **sentence-length** | [18] | "For calculating ground-truth metrics, we employ sentence-length, since it aligns best with our annotation schema" | ✅ tham khảo cho §5 (nếu cần mở rộng metric) |
+| 26 | LLM-judge **gần ngẫu nhiên trên miền kỹ thuật**: TechQA AUROC GPT-3.5 **0.51**, RAGAS **0.52**, vs DeBERTa fine-tuned **0.86**; EManual (sổ tay thiết bị): 0.54/0.57 vs 0.76 | [18] | Table 3 (AUROC hallucination detection, \* = significant 95% CI) | ✅ **đã đưa vào §2 + §7 của bài** — luận cứ mạnh cho kiểm thủ công trên miền O&M |
+
 ## Kết luận verify
 - **✅ 17/19** claim được xác nhận **nguyên văn** từ abstract (an toàn để cite) — gồm cả Gao taxonomy [3], Ji intrinsic/extrinsic [7], Self-RAG [4], CRAG [30], GraphRAG [28].
-- **⚠️ Còn theo full-text vault (NotebookLM không phủ được):** AIS 65.5% Table 1 [23]; tên 4 thành phần TRACe [18]; công thức 3 metric RAGAS [6]; "correctness ≠ attribution" [23].
-- Khuyến nghị: với 4 mục ⚠️, giữ nguyên footnote "đối chiếu full-text" và (nếu cần chắc tuyệt đối) upload **PDF** các nguồn này lên NotebookLM để verify lại số trong bảng.
+- **✅ Đợt 3 (2026-07-05): 4/4 mục ⚠️ còn lại đã xác nhận nguyên văn trên full-text** (Chrome, ar5iv/arXiv HTML) → **23/23 claim định lượng của bài đều đã kiểm chứng**.
+- **✅ Đợt 4 (2026-07-05): notebook đã có full-text [6][18][23]** — NotebookLM tự xác nhận lại #20–23 và bổ sung #24–26 (đã cập nhật vào bài). `add_source` MCP vẫn hỏng; nạp nguồn = thủ công qua web UI.
+- Ghi chú song song: 34/34 **URL nguồn** đã đối chiếu trang đích qua Chrome (2026-07-05) — 3 link sai/kém đã sửa (xem [[References (Harvard) - Smart Solar (34 nguồn)]]).
 
 ## Liên kết
 [[Bản đọc thử - Paper Draft (Smart Solar RAG)]] · [[Related Work - Draft v1 (VN)]] · [[Design & Evaluation Protocol - v2]] · [[_Sources Master List]] · [[Plan - NotebookLM Research+Verify Pass (2026-06-29)]]

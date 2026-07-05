@@ -35,10 +35,10 @@ status: reference
 | # | Tài liệu | Link | Mục đích |
 |---|----------|------|----------|
 | 10 | Terven, J. et al. (2023). *A Comprehensive Review of YOLO Architectures (v1→v8, YOLO-NAS)*. MAKE 5. | https://www.mdpi.com/2504-4990/5/4/83 | Overview YOLO — justify chọn YOLOv8 |
-| 11 | Hussain, M. & Khanam, R. (2024). *In-Depth Review of YOLOv1→v10 for PV Defect Detection*. Solar 4. | https://www.mdpi.com/2673-9941/4/3/18 | Survey YOLO cho PV — liên quan trực tiếp nhất |
-| 12 | (2025). *PV panel defect detection based on infrared imaging and improved YOLOv8*. PeerJ CS. | https://pmc.ncbi.nlm.nih.gov/articles/PMC12190611 | Detect scratches, black_core với YOLOv8 — kết quả thực nghiệm |
-| 13 | Khanam, R., Asghar, T. & Hussain, M. (2025). *Comparative Evaluation of YOLOv5/v8/v11 for Solar Panel Defect Detection*. Solar 5(1):6 (MDPI). | https://www.preprints.org/manuscript/202501.0788 | So sánh model: YOLOv8 recall 79.2% (bird drops), YOLOv11 mAP@0.5=93.4% |
-| 14 | Achit, M. et al. (2025). *Optimized YOLO (PV-YOLOv12n) for PV defect detection in EL images*. Scientific Reports 15:32955 (Nature). | https://www.nature.com/articles/s41598-025-13956-7 | Detect lỗi trên EL images — mAP@50 0.91 (PVEL-AD/Roboflow) |
+| 11 | Hussain, M. & Khanam, R. (2024). *In-Depth Review of YOLOv1 to YOLOv10 Variants for Enhanced Photovoltaic Defect Detection*. Solar 4(3):16. | https://www.mdpi.com/2673-9941/4/3/16 | Survey YOLO cho PV — liên quan trực tiếp nhất |
+| 12 | Wang, J. & Cheng, Z. (2025). *Photovoltaic panel defect detection algorithm based on infrared imaging and improved YOLOv8*. PeerJ CS 11:e2776. | https://pmc.ncbi.nlm.nih.gov/articles/PMC12190611 | Detect scratches, black_core với YOLOv8 — kết quả thực nghiệm |
+| 13 | Khanam, R., Asghar, T. & Hussain, M. (2025). *Comparative Evaluation of YOLOv5/v8/v11 for Solar Panel Defect Detection*. Solar 5(1):6 (MDPI). | https://www.mdpi.com/2673-9941/5/1/6 | So sánh model: YOLOv8 recall 79.2% (bird drops), YOLOv11 mAP@0.5=93.4% |
+| 14 | Mohamed, A. et al. (2025). *Optimized YOLO (PV-YOLOv12n) for PV defect detection in EL images*. Scientific Reports 15:32955 (Nature). | https://www.nature.com/articles/s41598-025-13956-7 | Detect lỗi trên EL images — mAP@50 0.91 (PVEL-AD/Roboflow) |
 
 ## ⚡ Nhóm 4 — Bối cảnh ngành Solar & Digitalization
 

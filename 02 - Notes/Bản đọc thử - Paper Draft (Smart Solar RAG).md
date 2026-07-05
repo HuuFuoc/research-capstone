@@ -16,8 +16,10 @@ created: 2026-06-29
 # Trợ lý tri thức dựa trên RAG tùy biến theo miền cho vận hành và bảo trì điện mặt trời: Thiết kế và đánh giá reference-free
 
 **Nhóm Capstone 2026**
-[Họ và tên 4 thành viên — bổ sung]
-Mã sinh viên: SE180466 · SE180579 · SE184144 · SE180271
+**1.** [Họ và tên — bổ sung] — SE180466
+**2.** [Họ và tên — bổ sung] — SE180579
+**3.** [Họ và tên — bổ sung] — SE184144
+**4.** [Họ và tên — bổ sung] — SE180271
 Khoa Kỹ thuật Phần mềm, Đại học FPT, Việt Nam
 Email liên hệ: [bổ sung]
 
@@ -43,7 +45,7 @@ Các trợ lý hỏi–đáp dùng mô hình ngôn ngữ lớn (LLM) trả lời
 
 Số hóa ngành điện mặt trời đang tăng nhanh, kéo theo nhu cầu về các nền tảng phần mềm hỗ trợ lắp đặt–giám sát–bảo trì (Depex Technologies, 2025).¹ Tài liệu O&M (sổ tay kỹ thuật, hướng dẫn lắp đặt, quy trình bảo trì) thường dài và phân mảnh, khiến kỹ thuật viên khó tra cứu nhanh. LLM có thể tổng hợp câu trả lời tức thì, nhưng trong ngữ cảnh kỹ thuật, **một câu trả lời sai hoặc không truy được nguồn có thể dẫn tới thao tác sai**, gây rủi ro an toàn và chi phí.
 
-RAG (Lewis et al., 2020) giảm thiểu các điểm yếu cốt lõi của LLM — hallucination, tri thức lỗi thời, và suy luận thiếu minh bạch (Gao et al., 2024) — bằng cách ghép **bộ nhớ tham số** (trọng số mô hình) với **bộ nhớ phi tham số** (chỉ mục tài liệu cập nhật được). Tuy nhiên, chất lượng RAG phụ thuộc mạnh vào lựa chọn *chunking*, *embedding* và *retrieval* (Shaukat et al., 2026; Karpukhin et al., 2020), và **không có cấu hình mặc định nào tối ưu cho mọi miền** (Shaukat et al., 2026). Câu hỏi đặt ra: với tài liệu O&M điện mặt trời, một pipeline RAG **được tùy biến** cải thiện bao nhiêu so với cách dùng LLM thường hoặc RAG mặc định?
+RAG (Lewis et al., 2020) giảm thiểu các điểm yếu cốt lõi của LLM — hallucination, tri thức lỗi thời, và suy luận thiếu minh bạch (Gao et al., 2024) — bằng cách ghép **bộ nhớ tham số** (trọng số mô hình) với **bộ nhớ phi tham số** (chỉ mục tài liệu cập nhật được). Tuy nhiên, chất lượng RAG phụ thuộc mạnh vào lựa chọn *chunking*, *embedding* và *retrieval* (Karpukhin et al., 2020; Shaukat et al., 2026), và **không có cấu hình mặc định nào tối ưu cho mọi miền** (Shaukat et al., 2026). Câu hỏi đặt ra: với tài liệu O&M điện mặt trời, một pipeline RAG **được tùy biến** cải thiện bao nhiêu so với cách dùng LLM thường hoặc RAG mặc định?
 
 **Đóng góp của bài báo:**
 - **C1 [Proposed].** Thiết kế một pipeline RAG tùy biến cho miền O&M điện mặt trời, với khái niệm "tùy biến" được định nghĩa cụ thể (Mục 4).
@@ -66,13 +68,13 @@ RAG (Lewis et al., 2020) giảm thiểu các điểm yếu cốt lõi của LLM 
 
 **RAG nâng cao (để định vị, không chạy đối chứng).** Các kiến trúc self-reflective/self-correcting như Self-RAG (Asai et al., 2023) (reflection token, tự phê bình) và Corrective RAG (Yan et al., 2024) (đánh giá chất lượng truy hồi) cải thiện độ tin cậy; GraphRAG (Edge et al., 2024) và RAPTOR (Sarthi et al., 2024) (cây tóm tắt đệ quy, +20% absolute trên QuALITY khi ghép GPT-4) xử lý tài liệu dài/câu hỏi tổng hợp. Trong bài này, các kiến trúc trên được **thảo luận để định vị đóng góp, không dùng làm baseline đối chứng** (xem Mục 4).
 
-**Đánh giá RAG.** RAGAS (Es et al., 2024) cung cấp bộ đo **reference-free** (không cần ground-truth) trên ba trục: chất lượng ngữ cảnh, độ trung thực phần sinh (*faithfulness*), và độ liên quan câu trả lời — ánh xạ trực tiếp vào tiêu chí của chúng tôi; nhóm tác giả mô tả đây là *"a framework for reference-free evaluation … without relying on ground truth human annotations"*. Vì RAGAS dựa trên **LLM-as-judge**, độ tin cậy của nó chịu các thiên kiến mà Li, D. et al. (2024) hệ thống hóa (khung *what / how to judge, how to benchmark*) — lý do chúng tôi bổ sung kiểm thủ công mẫu nhỏ (Mục 7). Các framework bổ trợ mở rộng khả năng đo: RAGBench (Friel et al., 2024) (**100k** ví dụ, **năm** miền công nghiệp; một RoBERTa fine-tuned **vượt** các phương pháp LLM-judge) và RAGTruth (Niu et al., 2024) (**~18.000** câu trả lời gán nhãn hallucination **ở mức từ**); ở tầm hệ thống, Zhou et al. (2024) đề xuất khung **Trust-RAG Compass** với **sáu chiều** *factuality, robustness, fairness, transparency, accountability, privacy* để trình bày độ tin cậy/truy vết trong phần Thảo luận. Cơ sở lý thuyết về hallucination lấy từ survey của Ji et al. (2023) (phân biệt *intrinsic* vs *extrinsic*).
+**Đánh giá RAG.** RAGAS (Es et al., 2024) cung cấp bộ đo **reference-free** (không cần ground-truth) trên ba trục: chất lượng ngữ cảnh, độ trung thực phần sinh (*faithfulness*), và độ liên quan câu trả lời — ánh xạ trực tiếp vào tiêu chí của chúng tôi; nhóm tác giả mô tả đây là *"a framework for reference-free evaluation … without relying on ground truth human annotations"*. Trên bộ WikiEval của chính nhóm tác giả, RAGAS đồng thuận với người đánh giá **0.95** ở *faithfulness*, **0.78** ở *answer relevance* nhưng chỉ **0.70** ở *context relevance* — chiều được chính các tác giả nhận là khó đánh giá nhất (Es et al., 2024). Vì RAGAS dựa trên **LLM-as-judge**, độ tin cậy của nó chịu các thiên kiến mà Li, D. et al. (2024) hệ thống hóa (khung *what / how to judge, how to benchmark*) — lý do chúng tôi bổ sung kiểm thủ công mẫu nhỏ (Mục 7). Các framework bổ trợ mở rộng khả năng đo: RAGBench (Friel et al., 2024) (**100k** ví dụ, **năm** miền công nghiệp; một encoder fine-tuned **vượt** các phương pháp LLM-judge — riêng trên miền kỹ thuật TechQA, AUROC phát hiện hallucination của GPT-3.5/RAGAS chỉ **0.51–0.52**, gần ngẫu nhiên, so với **0.86** của DeBERTa fine-tuned) và RAGTruth (Niu et al., 2024) (**~18.000** câu trả lời gán nhãn hallucination **ở mức từ**); ở tầm hệ thống, Zhou et al. (2024) đề xuất khung **Trust-RAG Compass** với **sáu chiều** *factuality, robustness, fairness, transparency, accountability, privacy* để trình bày độ tin cậy/truy vết trong phần Thảo luận. Cơ sở lý thuyết về hallucination lấy từ survey của Ji et al. (2023) (phân biệt *intrinsic* vs *extrinsic*).
 
 **Truy vết nguồn.** Bohnet et al. (2022) hình thức hóa *Attributed QA* và metric AIS (*Attributable to Identified Sources*); ngay hệ retrieve-then-read tốt nhất chỉ đạt **65.5±1.5% AIS**, và nhấn mạnh *correctness ≠ attribution*.
 
-**Khoảng trống.** Các công trình trên xử lý chất lượng RAG, hiệu quả truy hồi (Karpukhin et al., 2020; Khattab and Zaharia, 2020), đánh giá (Es et al., 2024; Friel et al., 2024; Niu et al., 2024; Li, D. et al., 2024) và benchmark trên tài liệu kỹ thuật/đa đoạn (Thakur et al., 2025; Tang and Yang, 2024) một cách **tổng quát**, trong khi so sánh RAG với long-context LLM cho thấy ưu thế **chi phí** rõ rệt của RAG (Li, Z. et al., 2024); song chưa có nghiên cứu **tùy biến RAG theo tài liệu O&M điện mặt trời (ưu tiên tiếng Việt)** kèm **đánh giá định lượng reference-free** so với baseline có kiểm soát trên dữ liệu miền này. Đây là khoảng trống bài báo hướng tới.
+**Khoảng trống.** Các công trình trên xử lý chất lượng RAG, hiệu quả truy hồi (Karpukhin et al., 2020; Khattab and Zaharia, 2020), đánh giá (Es et al., 2024; Friel et al., 2024; Li, D. et al., 2024; Niu et al., 2024) và benchmark trên tài liệu kỹ thuật/đa đoạn (Thakur et al., 2025; Tang and Yang, 2024) một cách **tổng quát**, trong khi so sánh RAG với long-context LLM cho thấy ưu thế **chi phí** rõ rệt của RAG (Li, Z. et al., 2024); song chưa có nghiên cứu **tùy biến RAG theo tài liệu O&M điện mặt trời (ưu tiên tiếng Việt)** kèm **đánh giá định lượng reference-free** so với baseline có kiểm soát trên dữ liệu miền này. Đây là khoảng trống bài báo hướng tới.
 
-> 📑 **Ghi chú kiểm chứng nguồn.** Các con số/claim định lượng trong mục Công trình liên quan đã được **đối chiếu nguyên văn với nguồn gốc** (grounded qua NotebookLM trên 35 nguồn, 2026-06-30): DPR 9–19% (Karpukhin et al., 2020), chunking 0.459/<0.244 (Shaukat et al., 2026), RAPTOR +20% *chỉ khi ghép GPT-4* (Sarthi et al., 2024), ColBERT nhanh 2 bậc/ít FLOPs 4 bậc (Khattab and Zaharia, 2020), RRF+Active Retrieval (Nguyen Ba et al., 2024), FreshStack (Thakur et al., 2025), MultiHop-RAG (Tang and Yang, 2024), RAGBench 100k/RoBERTa>LLM-judge (Friel et al., 2024), RAGTruth ~18k mức từ (Niu et al., 2024), RAGAS reference-free (Es et al., 2024), Trust-RAG 6 chiều (Zhou et al., 2024), RAG rẻ hơn LC (Li, Z. et al., 2024), LLM-as-judge (Li, D. et al., 2024). **Chưa phủ được** (giữ theo đối chiếu full-text trước đó của vault): AIS 65.5% ở Table 1 (Bohnet et al., 2022), tên 4 thành phần TRACe (Friel et al., 2024), công thức 3 metric RAGAS (Es et al., 2024). Chi tiết: [[Verify Log - NotebookLM (2026-06-29)]] · [[Related Work - Draft v1 (VN)]].
+> 📑 **Ghi chú kiểm chứng nguồn.** Các con số/claim định lượng trong mục Công trình liên quan đã được **đối chiếu nguyên văn với nguồn gốc** (grounded qua NotebookLM trên 35 nguồn, 2026-06-30): DPR 9–19% (Karpukhin et al., 2020), chunking 0.459/<0.244 (Shaukat et al., 2026), RAPTOR +20% *chỉ khi ghép GPT-4* (Sarthi et al., 2024), ColBERT nhanh 2 bậc/ít FLOPs 4 bậc (Khattab and Zaharia, 2020), RRF+Active Retrieval (Nguyen Ba et al., 2024), FreshStack (Thakur et al., 2025), MultiHop-RAG (Tang and Yang, 2024), RAGBench 100k/RoBERTa>LLM-judge (Friel et al., 2024), RAGTruth ~18k mức từ (Niu et al., 2024), RAGAS reference-free (Es et al., 2024), Trust-RAG 6 chiều (Zhou et al., 2024), RAG rẻ hơn LC (Li, Z. et al., 2024), LLM-as-judge (Li, D. et al., 2024). **Đã phủ nốt bằng full-text (Chrome trực tiếp trên arXiv HTML/ar5iv, 2026-07-05)**: AIS 65.5±1.5 cho retrieve-then-read tốt nhất + tương quan EM–AIS chỉ 0.45 tức *correctness ≠ attribution* (Bohnet et al., 2022); TRACe = uTilization, Relevance, Adherence, Completeness (Friel et al., 2024, §3.2); công thức 3 metric RAGAS F=|V|/|S|, AR=(1/n)Σsim(q,qᵢ), CR=|câu trích|/|tổng câu| (Es et al., 2024, bản arXiv:2309.15217). **Bổ sung (grounded NotebookLM full-text, 2026-07-05)**: RAGAS–người đồng thuận 0.95/0.78/0.70 trên WikiEval (Es et al., 2024, Table 1); TechQA AUROC GPT-3.5/RAGAS = 0.51/0.52 vs DeBERTa 0.86 (Friel et al., 2024, Table 3). Chi tiết: [[Verify Log - NotebookLM (2026-06-29)]] · [[Related Work - Draft v1 (VN)]].
 
 ---
 
@@ -124,7 +126,7 @@ Trong bài, **"tùy biến" (custom)** nghĩa là **điều chỉnh pipeline RAG
 | Thành phần | Naive (baseline B1) | Custom (P) | Căn cứ |
 |---|---|---|---|
 | Chunking | Cố định ~512 token | Content-aware (theo cấu trúc) | Shaukat et al. (2026) |
-| Retrieval | Vector top-$k$ | Vector + re-rank (±hybrid keyword) | Karpukhin et al. (2020); Khattab & Zaharia (2020); Nguyen Ba et al. (2024) |
+| Retrieval | Vector top-$k$ | Vector + re-rank (±hybrid keyword) | Karpukhin et al. (2020); Khattab and Zaharia (2020); Nguyen Ba et al. (2024) |
 | Prompt | Chung | Theo miền O&M điện mặt trời | Gao et al. (2024) |
 | Trích dẫn | Không | Trả về nguồn kèm câu trả lời | Lewis et al. (2020); Bohnet et al. (2022) |
 
@@ -173,7 +175,7 @@ $$
 \mathrm{Cost} = \sum_{i} \big(\mathrm{tokens}_i \times \mathrm{price}_i\big) \tag{4}
 $$
 
-> ⚠️ Công thức trên là **định nghĩa thao tác (operational)** theo tinh thần RAGAS (Es et al., 2024). Đã xác nhận (grounded) RAGAS là bộ đo **reference-free, không cần ground-truth** và dựa trên **LLM-as-judge** — nên có thiên kiến, giảm thiểu bằng kiểm thủ công mẫu nhỏ (Li, D. et al., 2024) (xem [[Verify Log - NotebookLM (2026-06-29)]]). Tuy nhiên **công thức chính xác** của ba metric **không nằm trong abstract** — phải lấy từ full-text (Es et al., 2024) kèm phiên bản thư viện và model làm "judge" trước khi báo cáo. *Source traceability* (sub-RQ) đo định tính theo khung AIS (Bohnet et al., 2022) trên tập nhỏ.
+> ⚠️ Đã đối chiếu **full-text** RAGAS (Es et al., 2024; bản arXiv:2309.15217, kiểm 2026-07-05): công thức (1) và (2) **khớp nguyên văn** bài gốc ($F=|V|/|S|$; $\mathrm{AR}=\frac{1}{n}\sum \mathrm{sim}(q,q_i)$). Lưu ý: metric thứ ba trong bài gốc là **context relevance** ($\mathrm{CR}=$ số câu được trích/tổng số câu trong $c(q)$); còn **Context Precision@k** ở công thức (3) là metric của **thư viện RAGAS** — khi báo cáo phải ghi rõ **phiên bản thư viện** và **model làm "judge"**. RAGAS là bộ đo **reference-free, không cần ground-truth** và dựa trên **LLM-as-judge** — nên có thiên kiến, giảm thiểu bằng kiểm thủ công mẫu nhỏ (Li, D. et al., 2024) (xem [[Verify Log - NotebookLM (2026-06-29)]]). *Source traceability* (sub-RQ) đo định tính theo khung AIS (Bohnet et al., 2022) trên tập nhỏ.
 
 ### 5.3 Quy trình
 
@@ -193,7 +195,7 @@ Chạy B0, B1, P trên cùng test set → thu metric §5.2 → báo cáo **trung
 | B1 — Naive RAG | — | — | — | — | — |
 | P — Custom RAG | — | — | — | — | — |
 
-*Thảo luận sẽ phân tích: (a) custom có cải thiện faithfulness/relevancy so với B0/B1 không; (b) đánh đổi latency/cost; (c) phân tích lỗi retriever vs generator (tùy chọn, dùng RAGChecker).*
+*Thảo luận sẽ phân tích: (a) custom có cải thiện faithfulness/relevancy so với B0/B1 không; (b) đánh đổi latency/cost; (c) phân tích lỗi retriever vs generator (tùy chọn, dùng RAGChecker — Ru et al., 2024).*
 
 ---
 
@@ -202,7 +204,7 @@ Chạy B0, B1, P trên cùng test set → thu metric §5.2 → báo cáo **trung
 - Test set nhỏ ($N=50$–$100$), một miền, ưu tiên tiếng Việt → **không khái quát hóa** rộng.
 - Chỉ 2 baseline có kiểm soát; chưa đối chứng kiến trúc self-correcting (Self-RAG/CRAG) → *future work*.
 - Một cấu hình "custom" duy nhất; chưa *ablation* từng thành phần.
-- Đánh giá phụ thuộc LLM-as-judge của RAGAS → có thiên lệch (xem khảo sát của Li, D. et al., 2024); giảm thiểu bằng kiểm thủ công mẫu nhỏ.
+- Đánh giá phụ thuộc LLM-as-judge của RAGAS → có thiên lệch (xem khảo sát của Li, D. et al., 2024); đồng thuận với người thấp nhất ở *context relevance* (0.70 trên WikiEval — Es et al., 2024), và LLM-judge phát hiện hallucination **gần mức ngẫu nhiên trên tài liệu kỹ thuật** (TechQA: AUROC 0.51–0.52 — Friel et al., 2024) — sát với miền O&M của chúng tôi; giảm thiểu bằng kiểm thủ công mẫu nhỏ.
 - Truy vết nguồn đo định tính, tập nhỏ.
 
 ---
@@ -248,6 +250,8 @@ Nguyen Ba, T. et al. (2024) 'Vietnamese legal information retrieval in question-
 
 Niu, C. et al. (2024) 'RAGTruth: a hallucination corpus for developing trustworthy retrieval-augmented language models', *Proceedings of ACL 2024*. arXiv:2401.00396. Available at: https://arxiv.org/abs/2401.00396 (Accessed: 30 June 2026).
 
+Ru, D. et al. (2024) 'RAGChecker: a fine-grained framework for diagnosing retrieval-augmented generation', *Advances in Neural Information Processing Systems (NeurIPS)*. arXiv:2408.08067. Available at: https://arxiv.org/abs/2408.08067 (Accessed: 30 June 2026).
+
 Sarthi, P. et al. (2024) 'RAPTOR: recursive abstractive processing for tree-organized retrieval'. arXiv:2401.18059 (presented at ICLR 2024). Available at: https://arxiv.org/abs/2401.18059 (Accessed: 30 June 2026).
 
 Shaukat, M.A., Adnan, M. and Kuhn, C.C.N. (2026) 'A systematic investigation of document chunking strategies and embedding sensitivity'. arXiv:2603.06976. Available at: https://arxiv.org/abs/2603.06976 (Accessed: 30 June 2026).
@@ -256,6 +260,6 @@ Tang, Y. and Yang, Y. (2024) 'MultiHop-RAG: benchmarking retrieval-augmented gen
 
 Thakur, N. et al. (2025) 'FreshStack: building realistic benchmarks for evaluating retrieval on technical documents'. arXiv:2504.13128. Available at: https://arxiv.org/abs/2504.13128 (Accessed: 30 June 2026).
 
-Yan, S. et al. (2024) 'Corrective retrieval-augmented generation'. arXiv:2401.15884. Available at: https://arxiv.org/abs/2401.15884 (Accessed: 30 June 2026).
+Yan, S.-Q. et al. (2024) 'Corrective retrieval augmented generation'. arXiv:2401.15884. Available at: https://arxiv.org/abs/2401.15884 (Accessed: 30 June 2026).
 
 Zhou, Y. et al. (2024) 'Trustworthiness in retrieval-augmented generation systems: a survey'. arXiv:2409.10102. Available at: https://arxiv.org/abs/2409.10102 (Accessed: 30 June 2026).
