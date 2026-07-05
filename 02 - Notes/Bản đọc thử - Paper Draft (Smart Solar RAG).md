@@ -181,6 +181,8 @@ $$
 
 Chạy B0, B1, P trên cùng test set → thu metric §5.2 → báo cáo **trung bình ± độ lệch**; nếu đủ mẫu, kiểm định ý nghĩa (paired test). Cố định seed/nhiệt độ, ghi phiên bản thư viện và log prompt để tái lập.
 
+**Chống bịa số liệu (anti-fabrication).** Mọi số liệu ở Mục 6 chỉ được lấy từ **log chạy tự động** (file JSON/CSV do script đánh giá xuất ra, lưu kèm repo); mỗi ô trong Bảng 3 phải truy vết được về một *run ID* cụ thể (ngày chạy, commit code, phiên bản thư viện RAGAS, model làm judge, seed). **Không điền tay bất kỳ con số nào**; ô chưa có log giữ nguyên "—".
+
 ---
 
 ## 6. Kết quả và Thảo luận (Results & Discussion) *[Result]*
@@ -212,6 +214,23 @@ Chạy B0, B1, P trên cùng test set → thu metric §5.2 → báo cáo **trung
 ## 8. Kết luận và Hướng phát triển (Conclusion)
 
 Bài báo **đề xuất thiết kế** một pipeline RAG tùy biến cho miền O&M điện mặt trời và **một giao thức đánh giá reference-free** so với hai baseline có kiểm soát (plain LLM, naive RAG) theo faithfulness, answer relevancy, context precision, cùng độ trễ và chi phí. *[Khi có kết quả:]* trên test set $N=\dots$, pipeline cho thấy *[xu hướng]* với đánh đổi *[latency/cost]*. Chúng tôi **chưa khẳng định** ưu thế tổng quát; đánh giá với nhiều baseline, tập lớn hơn và đa miền là hướng tiếp theo. Module phát hiện lỗi tấm pin bằng thị giác máy tính (YOLOv8) được phát triển song song như một hướng mở rộng, ngoài phạm vi bài báo này.
+
+---
+
+## Tuyên bố liêm chính & khả năng tái lập (Integrity & Reproducibility) — *[Plan]*
+
+- **Số liệu nền (Mục 2):** toàn bộ **26 claim định lượng** đã đối chiếu **nguyên văn** với nguồn gốc (NotebookLM grounded trên full-text + đối chiếu trực tiếp arXiv/ar5iv, cập nhật 2026-07-05); nhật ký đối chiếu: [[Verify Log - NotebookLM (2026-06-29)]].
+- **Nguồn tham khảo:** 34/34 URL/DOI đã kiểm trỏ đúng trang đích (2026-07-05); không cite nguồn chưa kiểm.
+- **Kết quả (Mục 6):** chỉ điền từ run log theo giao thức §5.3; bản thảo hiện tại **không chứa bất kỳ số liệu thực nghiệm nào** — mọi ô là "—" cho tới khi hệ thống chạy thật.
+- **Test set:** do ≥2 thành viên soạn từ tài liệu thật (§5.1), **không sinh tự động**; công bố kèm bài để người khác tái lập.
+
+> ☑️ **Checklist chống bịa — rà trước khi nộp:**
+> - [ ] Mọi ô Bảng 3 có run ID + file log kèm theo (phiên bản RAGAS, judge model, seed, commit code).
+> - [ ] Không còn placeholder `[team chốt]` / `[bổ sung]` / `[Khi có kết quả:]` ở bất kỳ đâu.
+> - [ ] Mọi con số ở Mục 2 khớp Verify Log (26/26) — **không thêm số mới chưa qua verify**.
+> - [ ] Abstract: gỡ câu "kết quả sẽ được bổ sung", thay bằng kết quả thật.
+> - [ ] Nhãn **[Proposed]/[Plan]/[Result]** rà lần cuối, chỉ gỡ ở bản nộp cuối.
+> - [ ] References khớp 1–1 với trích dẫn in-text (không nguồn thừa, không nguồn thiếu).
 
 ---
 
